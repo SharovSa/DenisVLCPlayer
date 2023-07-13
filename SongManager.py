@@ -7,26 +7,47 @@ class SongManager:
     __current_playlist = UserQueue()
     __all_songs = SongHolder()
     __playing_song = Song()
+    __played_songs = []
+    __is_random = False
+    __is_cycled = False
 
     def __init__(self):
         pass
 
     def prew_song(self):
+        if self.__is_cycled:
+            return self.get_song()
+        if len(self.__played_songs) != 0:
+            tmp = self.__playing_song
+            self.__playing_song = self.get_last_played_song()
+            self.add_to_played(tmp)
+            return self.__playing_song
         curr_id = self.__playing_song.get_song_id()
-        self.__playing_song = self.__all_songs.GetSongById(curr_id - 1)
-        self.__current_playlist = UserQueue()
-        self.__current_playlist.add_song_to_queue(self.__playing_song)
+        self.add_to_played(self.__playing_song)
+        self.__playing_song = self.__all_songs.get_song_by_id(curr_id - 1)
 
     def next_song(self):
+        if self.__is_cycled:
+            return self.get_song()
+        if self.__current_playlist.get_count_of_songs() > 0:
+            self.add_to_played(self.__playing_song)
+            self.__playing_song = self.__current_playlist.get_next()
+            return self.__playing_song
+        if self.__is_random:
+            self.add_to_played(self.__playing_song)
+            self.__playing_song = self.__all_songs.get_random_song()
+            return self.__playing_song
         curr_id = self.__playing_song.get_song_id()
-        self.__playing_song = self.__all_songs.GetSongById(curr_id + 1)
-        self.__current_playlist = UserQueue()
+        self.add_to_played(self.__playing_song)
+        self.__playing_song = self.__all_songs.get_song_by_id(curr_id + 1)
         self.__current_playlist.add_song_to_queue(self.__playing_song)
+        return self.__playing_song
 
     def get_song(self):
         return self.__playing_song
 
     def change_song_to_selected(self, song):
+        self.add_to_played(self.__playing_song)
         self.__playing_song = song
         self.__current_playlist = UserQueue()
         self.__current_playlist.add_song_to_queue(self.__playing_song)
@@ -36,3 +57,14 @@ class SongManager:
 
     def delete_song_from_queue(self):
         self.__current_playlist.delete_last_song()
+
+    def set_random_status(self, flag):
+        self.__is_random = flag
+
+    def add_to_played(self, song):
+        if len(self.__played_songs) == 5:
+            self.__played_songs.pop(0)
+        self.__played_songs.append(song)
+
+    def get_last_played_song(self):
+        return self.__played_songs.pop()
