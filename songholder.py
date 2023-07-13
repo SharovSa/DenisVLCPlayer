@@ -26,7 +26,7 @@ class SongHolder:
                 self.count += 1
         pass
 
-    def SongList(self):
+    def song_list(self):
         for i in self.songs_array:
             print(i.get_name())
 
@@ -45,13 +45,13 @@ class SongHolder:
 
                 print(title)
 
-    def GetRandomSong(self):
+    def get_random_song(self):
         elem = random.randint(0, self.count - 1)
         return self.songs_array[elem]
 
-    def GetSongById(self, id):
+    def get_song_by_id(self, id):
         if id < 0 or id >= self.count:
-            return self.GetRandomSong()
+            return self.get_random_song()
         return self.songs_array[id]
 
 
