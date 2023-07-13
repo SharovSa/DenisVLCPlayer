@@ -60,4 +60,5 @@ class SongHolder:
             return self.get_random_song()
         return self.__songs_array[id]
 
-
+    def get_song_list(self):
+        return self.__songs_array
