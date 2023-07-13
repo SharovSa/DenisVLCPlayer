@@ -43,3 +43,5 @@ class UserQueue:
     def clear_queue(self):
         while self.__songs_playlist:
             self.__songs_playlist.pop()
+        self.__current_position = 0
+        self.__count = 0
