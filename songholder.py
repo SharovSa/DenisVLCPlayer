@@ -8,10 +8,11 @@ class SongHolder:
         self.__songs_array = []
         self.__count = 0
 
-        directory = os.getcwd()
-
+        #directory = os.getcwd() + "\\songs\\"
+        directory = os.path.join(os.getcwd(), "songs/")
         for file in os.listdir(directory):
-            filename = os.fsdecode(file)
+            songname =  os.fsdecode(file)
+            filename = directory + songname
 
             if filename.endswith(".mp3"):
 
@@ -19,12 +20,11 @@ class SongHolder:
                 title = file.tag.title
 
                 if title is None:
-                    title = filename
+                    title = songname
 
                 cursong = Song(title, file.tag.artist, file.info.time_secs, "-", filename, self.__count)
                 self.__songs_array.append(cursong)
                 self.__count += 1
-        pass
 
     def song_list(self):
         for i in self.__songs_array:
@@ -62,3 +62,6 @@ class SongHolder:
 
     def get_song_list(self):
         return self.__songs_array
+
+playaaa = SongHolder()
+playaaa.song_list()

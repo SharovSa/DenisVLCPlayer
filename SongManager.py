@@ -4,11 +4,17 @@ from song import Song
 
 
 class SongManager:
-
+    # не варик убрать в конструктор
+    __current_playlist = UserQueue()
+    __all_songs = SongHolder()
+    __playing_song = __all_songs.get_song_by_id(0)
+    __played_songs = []
+    __is_random = False
+    __is_cycled = False
     def __init__(self):
         __current_playlist = UserQueue()
         __all_songs = SongHolder()
-        __playing_song = Song()
+        __playing_song = __all_songs.get_song_by_id(0)
         __played_songs = []
         __is_random = False
         __is_cycled = False
@@ -19,7 +25,7 @@ class SongManager:
         if len(self.__played_songs) != 0:
             tmp = self.__playing_song
             self.__playing_song = self.get_last_played_song()
-            self.add_to_played(tmp)
+            self.add_song_to_queue(tmp)
             return self.__playing_song
         curr_id = self.__playing_song.get_song_id()
         self.add_to_played(self.__playing_song)
@@ -39,7 +45,7 @@ class SongManager:
         curr_id = self.__playing_song.get_song_id()
         self.add_to_played(self.__playing_song)
         self.__playing_song = self.__all_songs.get_song_by_id(curr_id + 1)
-        self.__current_playlist.add_song_to_queue(self.__playing_song)
+        #self.__current_playlist.add_song_to_queue(self.__playing_song)
         return self.__playing_song
 
     def get_song(self):
@@ -67,3 +73,6 @@ class SongManager:
 
     def get_last_played_song(self):
         return self.__played_songs.pop()
+
+    def get_all_songs(self):
+        return self.__all_songs

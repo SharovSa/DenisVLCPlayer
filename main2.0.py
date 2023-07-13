@@ -3,13 +3,12 @@ from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HO
 import pygame
 import os
 from player import Player
+from song import Song
 
 root = Tk()
 root.title('DenisPlayer')
 root.geometry("600x350")
-
 player_owner = Player()
-
 try:
     pygame.mixer.init()
 except:
@@ -17,14 +16,12 @@ except:
 
 menubar = Menu(root)
 root.config(menu=menubar)
-
 songs = []
 
 class Constants:
     current_song = ""
-    paused = False
     isLoad = False
-    isPlaying = False
+
 
 def load_music():
     root.directory = "songs/"
@@ -33,7 +30,6 @@ def load_music():
         name, ext = os.path.splitext(song)
         if ext == '.mp3':
             songs.append(song)
-            print(song)
 
     for song in songs:
         songlist.insert("end", song)
@@ -42,56 +38,49 @@ def load_music():
     songlist.itemconfig(1, bg='green')
     Constants.current_song = songs[songlist.curselection()[0]]
 
-
 def play_pause_music():
     if not Constants.isLoad:
-        pygame.mixer.music.load(os.path.join(root.directory, Constants.current_song))
+        pygame.mixer.music.load(player_owner.get_manager().get_song().get_link())
         Constants.isLoad = True
 
-    if not Constants.paused:
-        if Constants.isPlaying:
+    if player_owner.is_paused():
+        if player_owner.is_playing():
             pygame.mixer.music.unpause()
         else:
             pygame.mixer.music.play()
+            player_owner.set_playing(True)
         play_pause_btn.config(image=pause_btn_image)
-        Constants.paused = True
+        player_owner.set_pause(False)
     else:
-        if pygame.mixer.music.get_busy():
+        """if pygame.mixer.music.get_busy():
             Constants.isPlaying = True
         else:
-            Constants.isPlaying = False
+            Constants.isPlaying = False"""
         pygame.mixer.music.pause()
-        Constants.paused = False
+        player_owner.set_pause(True)
         play_pause_btn.config(image=play_btn_image)
 
-
 def next_music():
-    Constants.isLoad = False
+
     try:
-        songlist.selection_clear(0, END)
-        if songs.index(Constants.current_song) != songlist.size() - 1:
-            songlist.selection_set(songs.index(Constants.current_song) + 1)
-        else:
-            songlist.selection_set(0)
-        #songlist.selection_set(songs.index(Constants.current_song) + 1)
         Constants.current_song = songs[songlist.curselection()[0]]
-        Constants.paused = False
+
+        pygame.mixer.music.load(player_owner.get_manager().next_song().get_link())
+        player_owner.set_pause(True)
+        player_owner.set_playing(False)
         play_pause_music()
     finally:
         pass
 
 
 def back_music():
-    Constants.isLoad = False
+
     try:
-        songlist.selection_clear(0, END)
-        if songs.index(Constants.current_song) != 0:
-            songlist.selection_set(songs.index(Constants.current_song) - 1)
-        else:
-            songlist.selection_set(songlist.size() - 1)
-        #songlist.selection_set(songs.index(Constants.current_song) - 1)
+
         Constants.current_song = songs[songlist.curselection()[0]]
-        Constants.paused = False
+        pygame.mixer.music.load(player_owner.get_manager().prew_song().get_link())
+        player_owner.set_pause(True)
+        player_owner.set_playing(False)
         play_pause_music()
     except:
         pass
@@ -99,17 +88,6 @@ def back_music():
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
     pygame.mixer.music.set_volume(volume)
-
-
-#def on_select(event):
-#    if not songs[songlist.curselection()[0]] == Constants.current_song:
-#        Constants.paused = False
-#        Constants.isLoad = False
-#    Constants.current_song = songs[songlist.curselection()[0]]
-#    play_pause_music()
-#
-#songlist.bind('<<ListboxSelect>>', on_select)
-
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")

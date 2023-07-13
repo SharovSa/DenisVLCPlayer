@@ -10,7 +10,7 @@ class UserQueue:
         self.__songs_playlist = songs_playlist
 
     def add_song_to_queue(self, song):
-        self.__songs_playlist.append(song)
+        self.__songs_playlist.insert(0,song)
         self.__count += 1
 
     def get_next(self):
@@ -22,7 +22,7 @@ class UserQueue:
             self.__songs_playlist.pop()
 
     def get_count_of_songs(self):
-        return self.__count
+        return len(self.__songs_playlist)
 
     def delete_selected_song(self, curr_song):
         for i in range(0, self.__count):
