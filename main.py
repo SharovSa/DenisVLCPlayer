@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import *
+from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
 import pygame
 import os
 

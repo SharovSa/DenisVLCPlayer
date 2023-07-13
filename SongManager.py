@@ -4,15 +4,14 @@ from song import Song
 
 
 class SongManager:
-    __current_playlist = UserQueue()
-    __all_songs = SongHolder()
-    __playing_song = Song()
-    __played_songs = []
-    __is_random = False
-    __is_cycled = False
 
     def __init__(self):
-        pass
+        __current_playlist = UserQueue()
+        __all_songs = SongHolder()
+        __playing_song = Song()
+        __played_songs = []
+        __is_random = False
+        __is_cycled = False
 
     def prew_song(self):
         if self.__is_cycled:

@@ -2,8 +2,6 @@ from song import Song
 
 
 class UserQueue:
-    __count = 0
-    __songs_playlist = []
 
     def __init__(self, count=0, songs_playlist=None):
         if songs_playlist is None:

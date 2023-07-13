@@ -10,7 +10,6 @@ class Player:
         self.__is_random = False
         self.__time = 0
         self.__song_manager = SongManager()
-        pass
 
 
     def play_pause(self):
