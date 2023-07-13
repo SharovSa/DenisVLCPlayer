@@ -8,7 +8,7 @@ class SongHolder:
         self.__songs_array = []
         self.__count = 0
 
-        directory = os.chdir('songs')
+        directory = os.getcwd()
 
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
@@ -46,7 +46,7 @@ class SongHolder:
                 print(title)
 
     def get_random_song(self):
-        elem = random.randint(0, self.__count-1)
+        elem = random.randint(0, self.__count - 1)
         return self.__songs_array[elem]
 
     def get_song_by_id(self, id):

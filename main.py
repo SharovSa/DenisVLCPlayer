@@ -40,7 +40,9 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
+    songlist.itemconfig(1, bg='green')
     Constants.current_song = songs[songlist.curselection()[0]]
+    a = 1
 
 
 def play_pause_music():
@@ -54,6 +56,7 @@ def play_pause_music():
         pygame.mixer.music.pause()
         Constants.paused = False
         play_pause_btn.config(image=play_btn_image)
+
 
 def next_music():
 
