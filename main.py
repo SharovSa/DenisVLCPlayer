@@ -62,7 +62,11 @@ def next_music():
 
     try:
         songlist.selection_clear(0, END)
-        songlist.selection_set(songs.index(Constants.current_song) + 1)
+        if songs.index(Constants.current_song) != songlist.size() - 1:
+            songlist.selection_set(songs.index(Constants.current_song) + 1)
+        else:
+            songlist.selection_set(0)
+        #songlist.selection_set(songs.index(Constants.current_song) + 1)
         Constants.current_song = songs[songlist.curselection()[0]]
         play_pause_music()
     except:
@@ -72,7 +76,11 @@ def next_music():
 def back_music():
     try:
         songlist.selection_clear(0, END)
-        songlist.selection_set(songs.index(Constants.current_song) - 1)
+        if songs.index(Constants.current_song) != 0:
+            songlist.selection_set(songs.index(Constants.current_song) - 1)
+        else:
+            songlist.selection_set(songlist.size() - 1)
+        #songlist.selection_set(songs.index(Constants.current_song) - 1)
         Constants.current_song = songs[songlist.curselection()[0]]
         play_pause_music()
     except:
