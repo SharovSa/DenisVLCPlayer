@@ -98,8 +98,8 @@ def change_volume(value):
     pygame.mixer.music.set_volume(volume)
 
 organise_menu = Menu(menubar, tearoff=False)
-songlist = Listbox(root, bg="red", fg="white", width=100, height=15)
-songlist.pack()
+songlist = Listbox(root, bg="red", fg="white")
+songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
 
 play_btn_image = PhotoImage(file='logo/play.png')
 pause_btn_image = PhotoImage(file='logo/pause.png')
@@ -130,7 +130,7 @@ add_btn.grid(row=0, column=6, padx=7, pady=10)
 delete_btn.grid(row=0, column=7, padx=7, pady=10)
 
 volume_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
-volume_slider.pack(anchor=tkinter.S)
+volume_slider.pack()
 volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
