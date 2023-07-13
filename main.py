@@ -106,7 +106,7 @@ def on_select(event):
     play_pause_music()
 
 organise_menu = Menu(menubar, tearoff=False)
-songlist = Listbox(root, bg="red", fg="white")
+songlist = Listbox(root, bg="black", fg="white")
 songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
 
 songlist.bind('<<ListboxSelect>>', on_select)
