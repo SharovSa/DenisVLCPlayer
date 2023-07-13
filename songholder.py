@@ -33,17 +33,23 @@ class SongHolder:
 
 
     def Checkmemory(self):
-        directory = os.getcwd()
+        directory = os.chdir('songs')
+
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
+
             if filename.endswith(".mp3"):
-                self.__count += 1
+
                 file = eyed3.load(filename)
                 title = file.tag.title
+
                 if title is None:
                     title = filename
 
-                print(title)
+                cursong = Song(title, file.tag.artist, file.info.time_secs, "-", filename, self.__count)
+                if not (cursong in self.__songs_array):
+                    self.__songs_array.append(cursong)
+                    self.__count += 1
 
     def get_random_song(self):
         elem = random.randint(0, self.__count-1)
