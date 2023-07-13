@@ -24,11 +24,9 @@ root.config(menu=menubar)
 
 songs = []
 
-
 class Constants:
     current_song = ""
     paused = False
-
 
 def load_music():
     root.directory = filedialog.askdirectory()
@@ -45,21 +43,17 @@ def load_music():
     Constants.current_song = songs[songlist.curselection()[0]]
 
 
-def play_music():
+def play_pause_music():
 
     if not Constants.paused:
         pygame.mixer.music.load(os.path.join(root.directory, Constants.current_song))
         pygame.mixer.music.play()
-
+        play_pause_btn.config(image=pause_btn_image)
+        Constants.paused = True
     else:
-        pygame.mixer.music.unpause()
+        pygame.mixer.music.pause()
         Constants.paused = False
-
-
-def pause_music():
-    pygame.mixer.music.pause()
-    Constants.paused = True
-
+        play_pause_btn.config(image=play_btn_image)
 
 def next_music():
 
@@ -67,7 +61,7 @@ def next_music():
         songlist.selection_clear(0, END)
         songlist.selection_set(songs.index(Constants.current_song) + 1)
         Constants.current_song = songs[songlist.curselection()[0]]
-        play_music()
+        play_pause_music()
     except:
         pass
 
@@ -77,7 +71,7 @@ def back_music():
         songlist.selection_clear(0, END)
         songlist.selection_set(songs.index(Constants.current_song) - 1)
         Constants.current_song = songs[songlist.curselection()[0]]
-        play_music()
+        play_pause_music()
     except:
         pass
 
@@ -97,13 +91,11 @@ back_btn_image = PhotoImage(file='back.png')
 control_frame = Frame(root)
 control_frame.pack()
 
-play_btn = Button(control_frame, image=play_btn_image, borderwidth=0, command=play_music)
-pause_btn = Button(control_frame, image=pause_btn_image, borderwidth=0, command=pause_music)
+play_pause_btn = Button(control_frame, image=play_btn_image, borderwidth=0, command=play_pause_music)
 next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=next_music)
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
 
-play_btn.grid(row=0, column=1, padx=7, pady=10)
-pause_btn.grid(row=0, column=2, padx=7, pady=10)
+play_pause_btn.grid(row=0, column=1, padx=7, pady=10)
 next_btn.grid(row=0, column=3, padx=7, pady=10)
 back_btn.grid(row=0, column=0, padx=7, pady=10)
 
