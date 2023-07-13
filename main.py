@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 import pygame
 import os
@@ -128,8 +129,8 @@ random_btn.grid(row=0, column=0, padx=7, pady=10)
 add_btn.grid(row=0, column=6, padx=7, pady=10)
 delete_btn.grid(row=0, column=7, padx=7, pady=10)
 
-volume_slider = Scale(root, from_=100, to=0, orient=HORIZONTAL)
-volume_slider.pack()
+volume_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
+volume_slider.pack(anchor=tkinter.S)
 volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
