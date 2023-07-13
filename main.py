@@ -84,8 +84,7 @@ def next_music():
 
 
 def back_music():
-    global isLoad
-    isLoad = False
+    Constants.isLoad = False
     try:
         songlist.selection_clear(0, END)
         if songs.index(Constants.current_song) != 0:
