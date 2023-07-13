@@ -14,7 +14,10 @@ class UserQueue:
         self.__songs_playlist = songs_playlist
 
     def delete_last_song(self):
-        self.__songs_playlist.pop()
+        if self.__songs_playlist != []:
+            self.__songs_playlist.pop()
+        else:
+            return
         if self.__current_position == (self.__count - 1):
             self.__current_position -= 1
         self.__count -= 1
