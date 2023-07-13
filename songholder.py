@@ -1,6 +1,6 @@
 import eyed3
 import os
-import song
+from song import Song
 import random
 class SongHolder:
 
@@ -21,7 +21,7 @@ class SongHolder:
                 if title is None:
                     title = filename
 
-                cursong = song.Song(title, file.tag.artist, file.info.time_secs, "-", filename, self.count)
+                cursong = Song(title, file.tag.artist, file.info.time_secs, "-", filename, self.count)
                 self.songs_array.append(cursong)
                 self.count += 1
         pass
@@ -54,6 +54,4 @@ class SongHolder:
             return self.GetRandomSong()
         return self.songs_array[id]
 
-pol = SongHolder()
-print(pol.GetRandomSong().get_name())
-print(pol.GetSongById().get_name())
+
