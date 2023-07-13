@@ -2,11 +2,13 @@ import tkinter
 from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
 import pygame
 import os
-
+from player import Player
 
 root = Tk()
 root.title('DenisPlayer')
 root.geometry("600x350")
+
+player_owner = Player()
 
 try:
     pygame.mixer.init()
@@ -74,7 +76,7 @@ def next_music():
         Constants.current_song = songs[songlist.curselection()[0]]
         Constants.paused = False
         play_pause_music()
-    except:
+    finally:
         pass
 
 
