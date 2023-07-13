@@ -25,11 +25,15 @@ class UserQueue:
 
     def get_next(self):
         if self.__current_position + 1 == self.__count:
+            self.__current_position = 0
+        else:
             self.__current_position += 1
         return self.__songs_playlist[self.__current_position]
 
     def get_previous(self):
-        if self.__current_position != 0:
+        if self.__current_position == 0:
+            self.__current_position = self.__count - 1
+        else:
             self.__current_position -= 1
         return self.__songs_playlist[self.__current_position]
 
