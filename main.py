@@ -29,7 +29,7 @@ class Constants:
     paused = False
 
 def load_music():
-    root.directory = filedialog.askdirectory()
+    root.directory = "songs/"
 
     for song in os.listdir(root.directory):
         name, ext = os.path.splitext(song)
@@ -77,9 +77,6 @@ def back_music():
 
 
 organise_menu = Menu(menubar, tearoff=False)
-organise_menu.add_command(label='Select Folder', command=load_music)
-menubar.add_cascade(label='Organise', menu=organise_menu)
-
 songlist = Listbox(root, bg="red", fg="white", width=100, height=15)
 songlist.pack()
 
@@ -98,5 +95,7 @@ back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=ba
 play_pause_btn.grid(row=0, column=1, padx=7, pady=10)
 next_btn.grid(row=0, column=3, padx=7, pady=10)
 back_btn.grid(row=0, column=0, padx=7, pady=10)
+
+load_music() # загрузка треков при запуске
 
 root.mainloop()
