@@ -27,7 +27,7 @@ class Constants:
 
 
 def load_music():
-    root.directory = filedialog.askdirectory()
+    root.directory = "songs/"
 
     for song in os.listdir(root.directory):
         name, ext = os.path.splitext(song)
