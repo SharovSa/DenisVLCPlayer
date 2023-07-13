@@ -1,18 +1,11 @@
-from tkinter import filedialog
-from tkinter import Tk
-from tkinter import Menu
-from tkinter import END
-from tkinter import Listbox
-from tkinter import PhotoImage
-from tkinter import Button
-from tkinter import Frame
+from tkinter import *
 import pygame
 import os
 
 
 root = Tk()
 root.title('DenisPlayer')
-root.geometry("500x300")
+root.geometry("600x350")
 
 try:
     pygame.mixer.init()
@@ -97,6 +90,9 @@ def back_music():
     except:
         pass
 
+def change_volume(value):
+    volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
+    pygame.mixer.music.set_volume(volume)
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="red", fg="white", width=100, height=15)
@@ -129,6 +125,12 @@ cycle_btn.grid(row=0, column=2, padx=7, pady=10)
 random_btn.grid(row=0, column=0, padx=7, pady=10)
 add_btn.grid(row=0, column=6, padx=7, pady=10)
 delete_btn.grid(row=0, column=7, padx=7, pady=10)
+
+volume_slider = Scale(root, from_=100, to=0, orient=HORIZONTAL)
+volume_slider.pack()
+volume_slider.set(100)
+
+volume_slider.config(command=change_volume)
 
 load_music() # загрузка треков при запуске
 
