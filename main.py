@@ -27,6 +27,8 @@ songs = []
 class Constants:
     current_song = ""
     paused = False
+    isLoad = False
+    isPlaying = False
 
 def load_music():
     root.directory = "songs/"
@@ -42,24 +44,32 @@ def load_music():
     songlist.selection_set(0)
     songlist.itemconfig(1, bg='green')
     Constants.current_song = songs[songlist.curselection()[0]]
-    a = 1
 
 
 def play_pause_music():
+    if not Constants.isLoad:
+        pygame.mixer.music.load(os.path.join(root.directory, Constants.current_song))
+        Constants.isLoad = True
 
     if not Constants.paused:
-        pygame.mixer.music.load(os.path.join(root.directory, Constants.current_song))
-        pygame.mixer.music.play()
+        if Constants.isPlaying:
+            pygame.mixer.music.unpause()
+        else:
+            pygame.mixer.music.play()
         play_pause_btn.config(image=pause_btn_image)
         Constants.paused = True
     else:
+        if pygame.mixer.music.get_busy():
+            Constants.isPlaying = True
+        else:
+            Constants.isPlaying = False
         pygame.mixer.music.pause()
         Constants.paused = False
         play_pause_btn.config(image=play_btn_image)
 
 
 def next_music():
-
+    Constants.isLoad = False
     try:
         songlist.selection_clear(0, END)
         if songs.index(Constants.current_song) != songlist.size() - 1:
@@ -74,6 +84,8 @@ def next_music():
 
 
 def back_music():
+    global isLoad
+    isLoad = False
     try:
         songlist.selection_clear(0, END)
         if songs.index(Constants.current_song) != 0:
