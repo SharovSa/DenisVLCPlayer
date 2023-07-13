@@ -19,12 +19,14 @@ menubar = Menu(root)
 root.config(menu=menubar)
 
 songs = []
-current_song = ""
-paused = False
+
+
+class Constants:
+    current_song = ""
+    paused = False
 
 
 def load_music():
-    global current_song
     root.directory = filedialog.askdirectory()
 
     for song in os.listdir(root.directory):
@@ -36,46 +38,41 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
-    current_song = songs[songlist.curselection()[0]]
+    Constants.current_song = songs[songlist.curselection()[0]]
 
 
 def play_music():
-    global current_song, paused
 
-    if not paused:
-        pygame.mixer.music.load(os.path.join(root.directory, current_song))
+    if not Constants.paused:
+        pygame.mixer.music.load(os.path.join(root.directory, Constants.current_song))
         pygame.mixer.music.play()
 
     else:
         pygame.mixer.music.unpause()
-        paused = False
+        Constants.paused = False
 
 
 def pause_music():
-    global paused
     pygame.mixer.music.pause()
-    paused = True
+    Constants.paused = True
 
 
 def next_music():
-    global current_song, paused
 
     try:
         songlist.selection_clear(0, END)
-        songlist.selection_set(songs.index(current_song) + 1)
-        current_song = songs[songlist.curselection()[0]]
+        songlist.selection_set(songs.index(Constants.current_song) + 1)
+        Constants.current_song = songs[songlist.curselection()[0]]
         play_music()
     except:
         pass
 
 
 def back_music():
-    global current_song, paused
-
     try:
         songlist.selection_clear(0, END)
-        songlist.selection_set(songs.index(current_song) - 1)
-        current_song = songs[songlist.curselection()[0]]
+        songlist.selection_set(songs.index(Constants.current_song) - 1)
+        Constants.current_song = songs[songlist.curselection()[0]]
         play_music()
     except:
         pass
