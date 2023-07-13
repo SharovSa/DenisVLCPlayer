@@ -98,18 +98,21 @@ def change_volume(value):
     pygame.mixer.music.set_volume(volume)
 
 
-def on_select(event):
-    if not songs[songlist.curselection()[0]] == Constants.current_song:
-        Constants.paused = False
-        Constants.isLoad = False
-    Constants.current_song = songs[songlist.curselection()[0]]
-    play_pause_music()
+#def on_select(event):
+#    if not songs[songlist.curselection()[0]] == Constants.current_song:
+#        Constants.paused = False
+#        Constants.isLoad = False
+#    Constants.current_song = songs[songlist.curselection()[0]]
+#    play_pause_music()
+#
+#songlist.bind('<<ListboxSelect>>', on_select)
+
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
 songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
 
-songlist.bind('<<ListboxSelect>>', on_select)
+
 
 play_btn_image = PhotoImage(file='logo/play.png')
 pause_btn_image = PhotoImage(file='logo/pause.png')
