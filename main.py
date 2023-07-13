@@ -9,11 +9,15 @@ from tkinter import Frame
 import pygame
 import os
 
+
 root = Tk()
 root.title('DenisPlayer')
 root.geometry("500x300")
 
-pygame.mixer.init()
+try:
+    pygame.mixer.init()
+except:
+    print("Аудиовыход не найден")
 
 menubar = Menu(root)
 root.config(menu=menubar)
