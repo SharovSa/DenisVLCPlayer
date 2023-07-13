@@ -71,6 +71,7 @@ def next_music():
             songlist.selection_set(0)
         #songlist.selection_set(songs.index(Constants.current_song) + 1)
         Constants.current_song = songs[songlist.curselection()[0]]
+        Constants.paused = False
         play_pause_music()
     except:
         pass
@@ -86,6 +87,7 @@ def back_music():
             songlist.selection_set(songlist.size() - 1)
         #songlist.selection_set(songs.index(Constants.current_song) - 1)
         Constants.current_song = songs[songlist.curselection()[0]]
+        Constants.paused = False
         play_pause_music()
     except:
         pass
