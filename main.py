@@ -83,9 +83,6 @@ def back_music():
 
 
 organise_menu = Menu(menubar, tearoff=False)
-organise_menu.add_command(label='Select Folder', command=load_music)
-menubar.add_cascade(label='Organise', menu=organise_menu)
-
 songlist = Listbox(root, bg="red", fg="white", width=100, height=15)
 songlist.pack()
 
@@ -106,5 +103,7 @@ play_btn.grid(row=0, column=1, padx=7, pady=10)
 pause_btn.grid(row=0, column=2, padx=7, pady=10)
 next_btn.grid(row=0, column=3, padx=7, pady=10)
 back_btn.grid(row=0, column=0, padx=7, pady=10)
+
+load_music() # загрузка треков при запуске
 
 root.mainloop()

@@ -20,11 +20,12 @@ class UserQueue:
         self.__count -= 1
 
     def add_song_to_queue(self, song):
-        __songs_playlist.append(self.song)
+        self.__songs_playlist.append(self.song)
         self.__count += 1
 
     def get_next(self):
-        self.__current_position += 1
+        if self.__current_position + 1 == self.__count:
+            self.__current_position += 1
         return self.__songs_playlist[self.__current_position]
 
     def get_previous(self):
@@ -34,6 +35,6 @@ class UserQueue:
 
     def clear_queue(self):
         while self.__songs_playlist != []:
-            __songs_playlist.pop()
+            self.__songs_playlist.pop()
 
 
