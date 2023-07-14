@@ -1,7 +1,8 @@
 import tkinter
-from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
+from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL, X, BOTTOM, Label, GROOVE, E
 import pygame
 import os
+import time
 from player import Player
 from song import Song
 
@@ -40,6 +41,8 @@ class GlobalPlayer:
         self.add_btn_image = PhotoImage(file='logo/add.png')
         self.delete_btn_image = PhotoImage(file='logo/delete.png')
         self.erase_btn_image = PhotoImage(file='logo/eraser_queque.png')
+
+        self.status_bar = Label(root, text='', bd=1, relief=GROOVE, anchor=E)
 
         self.control_frame = Frame(root)
 
@@ -90,6 +93,7 @@ class GlobalPlayer:
             pygame.mixer.music.pause()
             player_owner.set_pause(True)
             self.play_pause_btn.config(image=self.play_btn_image)
+        self.current_time()
 
     def next_music(self):
         Constants.current_song = songs[self.songlist.curselection()[0]]
@@ -148,6 +152,15 @@ class GlobalPlayer:
         if not player_owner.get_manager().get_queue().delete_selected_song(cur_song):
             self.songlist.itemconfig(self.songlist.curselection()[0], bg='black')
 
+    def current_time(self):
+        cur_time = pygame.mixer.music.get_pos() / 1000
+        converted_time = time.strftime('%M:%S', time.gmtime(cur_time))
+        self.status_bar.config(text=converted_time)
+        if converted_time != '59:59':
+            self.status_bar.after(1000, self.current_time)
+        else:
+            self.status_bar.config(text='')
+
 
 if __name__ == "__main__":
     global_player = GlobalPlayer()
@@ -168,5 +181,7 @@ if __name__ == "__main__":
     global_player.volume_slider.config(command=global_player.change_volume)
 
     global_player.load_music()  # загрузка треков при запуске
+
+    global_player.status_bar.pack(fill=X, side=BOTTOM, ipadx=2)
 
     root.mainloop()
