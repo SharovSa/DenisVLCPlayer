@@ -1,7 +1,8 @@
 import tkinter
-from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
+from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL, Label, X, GROOVE, BOTTOM, E
 import pygame
 import os
+import time
 from player import Player
 from song import Song
 
@@ -62,6 +63,7 @@ def play_pause_music():
         player_owner.set_pause(True)
         play_pause_btn.config(image=play_btn_image)
 
+    time()
 
 def next_music():
     try:
@@ -102,6 +104,13 @@ def random_button():
         random_btn.config(image=random_active_btn_image)
     else:
         random_btn.config(image=random_btn_image)
+
+def time():
+    cur_time = pygame.mixer.music.get_pos() / 1000
+    converted_time = time.strftime('%M:%S', time.gmtime(cur_time))
+    status_bar.config(text=converted_time)
+    status_bar.after(1000, time)
+
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
@@ -145,6 +154,9 @@ volume_slider.pack()
 volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
+
+status_bar = Label(root, text='', bd = 1, relief=GROOVE, anchor=E)
+status_bar.pack(fill=X, side=BOTTOM, ipadx=2)
 
 load_music()  # загрузка треков при запуске
 
