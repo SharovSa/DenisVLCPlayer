@@ -111,6 +111,10 @@ def random_button():
 
 def cycle_button():
     player_owner.get_manager().set_cycle_status(not player_owner.get_manager().get_cycle_status())
+    if cycle_btn["image"] == 'pyimage5':
+        cycle_btn.config(image=cycle_active_btn_image)
+    else:
+        cycle_btn.config(image=cycle_btn_image)
 
 
 organise_menu = Menu(menubar, tearoff=False)
