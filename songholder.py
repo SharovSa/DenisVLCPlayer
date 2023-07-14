@@ -9,10 +9,10 @@ class SongHolder:
     def __init__(self):
         self.__songs_array = []
         self.__count = 0
-        #directory = os.getcwd() + "\\songs\\"
+        # directory = os.getcwd() + "\\songs\\"
         directory = os.path.join(os.getcwd(), "songs/")
         for file in os.listdir(directory):
-            songname =  os.fsdecode(file)
+            songname = os.fsdecode(file)
             filename = directory + songname
 
             if filename.endswith(".mp3"):
@@ -31,9 +31,7 @@ class SongHolder:
         for i in self.__songs_array:
             print(i.get_name())
 
-
-
-    def Checkmemory(self):
+    def check_memory(self):
         directory = os.chdir('songs')
 
         for file in os.listdir(directory):
@@ -63,6 +61,7 @@ class SongHolder:
 
     def get_song_list(self):
         return self.__songs_array
+
 
 playaaa = SongHolder()
 playaaa.song_list()
