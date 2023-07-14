@@ -76,6 +76,7 @@ class SongManager:
 
     def delete_song_from_queue(self, curr_song):
         self.__current_playlist.delete_selected_song(curr_song)
+        self.__current_playlist.get_next_list()
 
     def set_random_status(self, flag):
         self.__is_random = flag

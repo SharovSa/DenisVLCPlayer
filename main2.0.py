@@ -67,8 +67,15 @@ def next_music():
 
     try:
         Constants.current_song = songs[songlist.curselection()[0]]
+        cur_song = player_owner.get_manager().next_song()
+        pygame.mixer.music.load(cur_song.get_link())
+        songlist.selection_clear(0, END)
+        songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
+        if not player_owner.get_manager().get_queue().check_track(cur_song):
+            songlist.itemconfig(songlist.curselection()[0], bg='black')
 
-        pygame.mixer.music.load(player_owner.get_manager().next_song().get_link())
+        songlist.selection_clear(0, END)
+        songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
         songlist.selection_clear(0, END)
         songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
         player_owner.set_pause(True)
@@ -86,6 +93,7 @@ def back_music():
         pygame.mixer.music.load(player_owner.get_manager().prew_song().get_link())
         songlist.selection_clear(0, END)
         songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
+        clear_all()
         player_owner.set_pause(True)
         player_owner.set_playing(False)
         play_pause_music()
@@ -122,6 +130,11 @@ def cycle_button():
     else:
         cycle_btn.config(image=cycle_btn_image)
 
+def delete_cur():
+    cur_song = player_owner.get_manager().get_all_songs().get_song_by_id(songlist.curselection()[0])
+    if not player_owner.get_manager().get_queue().delete_selected_song(cur_song):
+        songlist.itemconfig(songlist.curselection()[0], bg='black')
+
 
 
 organise_menu = Menu(menubar, tearoff=False)
@@ -149,7 +162,7 @@ back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=ba
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0, command=cycle_button)
 add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
-delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
+delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0, command=delete_cur)
 erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0, command=clear_all)
 
 play_pause_btn.grid(row=0, column=4, padx=7, pady=10)
