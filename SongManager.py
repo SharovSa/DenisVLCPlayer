@@ -30,9 +30,15 @@ class SongManager:
             self.__playing_song = self.get_last_played_song()
             self.add_song_to_queue(tmp)
             return self.__playing_song
+        if self.__is_random:
+            self.add_song_to_queue(self.__playing_song)
+            self.__playing_song = self.get_all_songs().get_random_song(self.__playing_song.get_song_id())
+            return self.__playing_song
         curr_id = self.__playing_song.get_song_id()
-        self.add_to_played(self.__playing_song)
+        if curr_id != 0:
+            self.add_song_to_queue(self.__playing_song)
         self.__playing_song = self.__all_songs.get_song_by_id(curr_id - 1)
+        return self.__playing_song
 
     def next_song(self):
         if self.__is_cycled:
@@ -43,7 +49,7 @@ class SongManager:
             return self.__playing_song
         if self.__is_random:
             self.add_to_played(self.__playing_song)
-            self.__playing_song = self.__all_songs.get_random_song()
+            self.__playing_song = self.__all_songs.get_random_song(self.__playing_song.get_song_id())
             return self.__playing_song
         curr_id = self.__playing_song.get_song_id()
         self.add_to_played(self.__playing_song)
@@ -68,6 +74,9 @@ class SongManager:
 
     def set_random_status(self, flag):
         self.__is_random = flag
+
+    def get_random_status(self):
+        return self.__is_random
 
     def add_to_played(self, song):
         if len(self.__played_songs) == self.__size_of_remaining:

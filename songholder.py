@@ -50,18 +50,21 @@ class SongHolder:
                     self.__songs_array.append(cursong)
                     self.__count += 1
 
-    def get_random_song(self):
+    def get_random_song(self, id):
         elem = random.randint(0, self.__count - 1)
+        if elem == id:
+            if elem + 1 >= self.__count:
+                return self.__songs_array[elem - 1]
+            else:
+                return self.__songs_array[elem + 1]
         return self.__songs_array[elem]
 
     def get_song_by_id(self, id):
-        if id < 0 or id >= self.__count:
-            return self.get_random_song()
+        if id < 0:
+            return self.__songs_array[0]
+        if id >= self.__count:
+            return self.get_random_song(id)
         return self.__songs_array[id]
 
     def get_song_list(self):
         return self.__songs_array
-
-
-playaaa = SongHolder()
-playaaa.song_list()
