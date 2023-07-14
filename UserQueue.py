@@ -16,12 +16,21 @@ class UserQueue:
         self.__songs_playlist.append(song)
 
     def check_track(self, song):
+        """
+        Проверяет есть ли переданная песня в очереди
+        :param song: песня
+        :return: bool
+        """
         for track in self.__songs_playlist:
             if track.get_link() == song.get_link():
                 return True
         return False
 
     def get_next(self):
+        """
+        Следующая песня из очереди
+        :return: песня
+        """
         return self.__songs_playlist.pop(0)
 
     def clear_queue(self):
@@ -31,6 +40,11 @@ class UserQueue:
         return len(self.__songs_playlist)
 
     def get_next_list(self):
+        """
+        !!!ДЛЯ ДЕБАГА!!!
+        Выводит песни, которые лежат в очереди
+        :return:
+        """
         for i in self.__songs_playlist:
             print(i.get_name())
 

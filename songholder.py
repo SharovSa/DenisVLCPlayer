@@ -32,7 +32,10 @@ class SongHolder:
             print(i.get_name())
 
     def check_memory(self):
-
+        """
+        Обновляет список песен из директории (загружает новые)
+        :return:
+        """
         directory = os.chdir('songs')
 
         for file in os.listdir(directory):
@@ -52,6 +55,11 @@ class SongHolder:
                     self.__count += 1
 
     def get_random_song(self, id):
+        """
+        Возвращает случайную песню из списка, отличную от текущей
+        :param id: индекс текущей песни
+        :return: случайным образом выбранная песня
+        """
         elem = random.randint(0, self.__count - 1)
         if elem == id:
             if elem + 1 >= self.__count:
@@ -61,6 +69,11 @@ class SongHolder:
         return self.__songs_array[elem]
 
     def get_song_by_id(self, id):
+        """
+        Возвращает песню по индексу
+        :param id: индекс песни
+        :return: песня
+        """
         if id < 0:
             return self.__songs_array[0]
         if id >= self.__count:

@@ -62,6 +62,10 @@ class GlobalPlayer:
         self.volume_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
 
     def load_music(self):
+        """
+        Загружает музыку из папки
+        :return:
+        """
         root.directory = "songs/"
 
         for song in os.listdir(root.directory):
@@ -77,6 +81,11 @@ class GlobalPlayer:
         Constants.current_song = songs[self.songlist.curselection()[0]]
 
     def play_pause_music(self):
+        """
+        Загружает музыку в функцию плеера, если она не загружена
+        Ставит музыку на паузу или снимает с неё в зависимости от состояния player_owner
+        :return:
+        """
         if not Constants.isLoad:
             pygame.mixer.music.load(player_owner.get_manager().get_song().get_link())
             Constants.isLoad = True
@@ -96,6 +105,12 @@ class GlobalPlayer:
         self.current_time()
 
     def next_music(self):
+        """
+        Включает следующую из очереди песню, либо берет следующую из списка всех песен
+        в зависимости от состояния player_owner.
+        Если песен в очереди нет и все песни из списка уже проиграны, то включает случайную.
+        :return:
+        """
         Constants.current_song = songs[self.songlist.curselection()[0]]
         cur_song = player_owner.get_manager().next_song()
         pygame.mixer.music.load(cur_song.get_link())
@@ -112,6 +127,11 @@ class GlobalPlayer:
         self.play_pause_music()
 
     def back_music(self):
+        """
+        Включает предыдущую из очереди проигранных песню, либо берет следующую из списка всех песен
+        в зависимости от состояния player_owner.
+        :return:
+        """
         pygame.mixer.music.load(player_owner.get_manager().prew_song().get_link())
         self.songlist.selection_clear(0, END)
         self.songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
@@ -121,14 +141,27 @@ class GlobalPlayer:
         self.play_pause_music()
 
     def add_track(self):
+        """
+        Добавляет выбранную песню в очередь проигрывания.
+        :return:
+        """
         player_owner.add_to_queue(self.songlist.curselection()[0])
         self.songlist.itemconfig(self.songlist.curselection()[0], bg='green')
 
     def change_volume(self, value):
+        """
+        Меняет громкость на переданную
+        :param value: значение громкости
+        :return:
+        """
         volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
         pygame.mixer.music.set_volume(volume)
 
     def random_button(self):
+        """
+        Включает/выключает режим "слушать вперемешку"
+        :return:
+        """
         player_owner.get_manager().set_random_status(not player_owner.get_manager().get_random_status())
         if self.random_btn["image"] == 'pyimage7':
             self.random_btn.config(image=self.random_active_btn_image)
@@ -136,11 +169,19 @@ class GlobalPlayer:
             self.random_btn.config(image=self.random_btn_image)
 
     def clear_all(self):
+        """
+        Очищает очередь
+        :return:
+        """
         player_owner.clear_queue()
         for i in range(0, self.songlist.size()):
             self.songlist.itemconfig(i, bg='black')
 
     def cycle_button(self):
+        """
+        Включает/выключает режим "повтор песни"
+        :return:
+        """
         player_owner.get_manager().set_cycle_status(not player_owner.get_manager().get_cycle_status())
         if self.cycle_btn["image"] == 'pyimage5':
             self.cycle_btn.config(image=self.cycle_active_btn_image)
@@ -148,11 +189,19 @@ class GlobalPlayer:
             self.cycle_btn.config(image=self.cycle_btn_image)
 
     def delete_cur(self):
+        """
+        Удаляет выбранную песню из очереди
+        :return:
+        """
         cur_song = player_owner.get_manager().get_all_songs().get_song_by_id(self.songlist.curselection()[0])
         if not player_owner.get_manager().get_queue().delete_selected_song(cur_song):
             self.songlist.itemconfig(self.songlist.curselection()[0], bg='black')
 
     def current_time(self):
+        """
+        Выводит текущие время песни
+        :return:
+        """
         cur_time = pygame.mixer.music.get_pos() / 1000
         converted_time = time.strftime('%M:%S', time.gmtime(cur_time))
         self.status_bar.config(text=converted_time)
@@ -163,6 +212,9 @@ class GlobalPlayer:
 
 
 if __name__ == "__main__":
+    """
+    Стартовая функция
+    """
     global_player = GlobalPlayer()
     global_player.songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
     global_player.control_frame.pack()

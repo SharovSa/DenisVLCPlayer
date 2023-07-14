@@ -15,6 +15,10 @@ class SongManager:
         self.__size_of_remaining = 5
 
     def prew_song(self):
+        """
+        Проверяет состояния SongManager и в зависимости от них возвращает предыдущую песню
+        :return: предыдущая песня
+        """
         if self.__is_cycled:
             return self.get_song()
         if len(self.__played_songs) != 0:
@@ -33,6 +37,10 @@ class SongManager:
         return self.__playing_song
 
     def next_song(self):
+        """
+        Проверяет состояния SongManager и UserQueue и в зависимости от них возвращает следующую песню
+        :return: следующая песня
+        """
         if self.__is_cycled:
             return self.get_song()
         if self.__current_playlist.get_count_of_songs() > 0:
@@ -53,6 +61,11 @@ class SongManager:
         return self.__playing_song
 
     def change_song_to_selected(self, song):
+        """
+        Меняет текущую играющую песню на выбранную
+        :param song: выбранная песня
+        :return:
+        """
         self.add_to_played(self.__playing_song)
         self.__playing_song = song
         self.__current_playlist = UserQueue()
@@ -77,11 +90,20 @@ class SongManager:
         return self.__is_random
 
     def add_to_played(self, song):
+        """
+        Добавляет отыгранную песню в очередь отыгранных
+        :param song: отыгранная песня
+        :return:
+        """
         if len(self.__played_songs) == self.__size_of_remaining:
             self.__played_songs.pop(0)
         self.__played_songs.append(song)
 
     def get_last_played_song(self):
+        """
+        Возвращает предыдущую отыгранную песню
+        :return:
+        """
         return self.__played_songs.pop()
 
     def get_all_songs(self):
