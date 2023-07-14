@@ -66,6 +66,8 @@ def next_music():
         Constants.current_song = songs[songlist.curselection()[0]]
 
         pygame.mixer.music.load(player_owner.get_manager().next_song().get_link())
+        songlist.selection_clear(0, END)
+        songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
         player_owner.set_pause(True)
         player_owner.set_playing(False)
         play_pause_music()
@@ -79,6 +81,8 @@ def back_music():
 
         Constants.current_song = songs[songlist.curselection()[0]]
         pygame.mixer.music.load(player_owner.get_manager().prew_song().get_link())
+        songlist.selection_clear(0, END)
+        songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
         player_owner.set_pause(True)
         player_owner.set_playing(False)
         play_pause_music()
@@ -88,6 +92,10 @@ def back_music():
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
     pygame.mixer.music.set_volume(volume)
+
+
+def random_button():
+    player_owner.get_manager().set_random_status(not player_owner.get_manager().get_random_status())
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
@@ -111,7 +119,7 @@ play_pause_btn = Button(control_frame, image=play_btn_image, borderwidth=0, comm
 next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=next_music)
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
-random_btn = Button(control_frame, image=random_btn_image, borderwidth=0)
+random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
 add_btn = Button(control_frame, image=add_btn_image, borderwidth=0)
 delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
 
