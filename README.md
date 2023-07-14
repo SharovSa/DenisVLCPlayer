@@ -16,6 +16,7 @@
 Клонируйте репозиторий командами ниже:
 
 `git init`
+
 `git clone https://github.com/SharovSa/DenisVLCPlayer.git`
 
 Переключитесь на ветку dev:
