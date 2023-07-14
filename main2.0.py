@@ -36,8 +36,9 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
-    songlist.itemconfig(1, bg='green')
+
     Constants.current_song = songs[songlist.curselection()[0]]
+
 
 
 def play_pause_music():
@@ -62,8 +63,8 @@ def play_pause_music():
         player_owner.set_pause(True)
         play_pause_btn.config(image=play_btn_image)
 
-
 def next_music():
+
     try:
         Constants.current_song = songs[songlist.curselection()[0]]
 
@@ -78,6 +79,7 @@ def next_music():
 
 
 def back_music():
+
     try:
 
         Constants.current_song = songs[songlist.curselection()[0]]
@@ -90,6 +92,9 @@ def back_music():
     except:
         pass
 
+def add_track():
+    player_owner.add_to_queue(songlist.curselection()[0])
+    songlist.itemconfig(songlist.curselection()[0], bg='green')
 
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
@@ -126,8 +131,8 @@ play_pause_btn = Button(control_frame, image=play_btn_image, borderwidth=0, comm
 next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=next_music)
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
+add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
-add_btn = Button(control_frame, image=add_btn_image, borderwidth=0)
 delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
 erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0)
 
@@ -138,7 +143,6 @@ cycle_btn.grid(row=0, column=2, padx=7, pady=10)
 random_btn.grid(row=0, column=0, padx=7, pady=10)
 add_btn.grid(row=0, column=6, padx=7, pady=10)
 delete_btn.grid(row=0, column=7, padx=7, pady=10)
-erase_btn.grid(row=0, column=8, padx=7, pady=10)
 
 volume_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
 volume_slider.pack()
@@ -146,6 +150,6 @@ volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
 
-load_music()  # загрузка треков при запуске
+load_music() # загрузка треков при запуске
 
 root.mainloop()
