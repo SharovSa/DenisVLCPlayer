@@ -33,9 +33,11 @@
 
 `mkdir Player`
 
-Клонируйте репозиторий командами ниже:
+`cd Player`
 
-`git init`
+`cd DenisVLCPlayer`
+
+Клонируйте репозиторий командами ниже:
 
 `git clone https://github.com/SharovSa/DenisVLCPlayer.git`
 
