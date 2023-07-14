@@ -28,7 +28,7 @@ class SongManager:
         if len(self.__played_songs) != 0:
             tmp = self.__playing_song
             self.__playing_song = self.get_last_played_song()
-            self.add_song_to_queue(tmp)
+            #self.add_song_to_queue(tmp)
             return self.__playing_song
         if self.__is_random:
             self.add_song_to_queue(self.__playing_song)
@@ -68,6 +68,11 @@ class SongManager:
 
     def add_song_to_queue(self, song):
         self.__current_playlist.add_song_to_queue(song)
+        self.__current_playlist.get_next_list()
+
+    def add_song_to_queue_end(self, song):
+        self.__current_playlist.add_song_to_queue_end(song)
+        self.__current_playlist.get_next_list()
 
     def delete_song_from_queue(self, curr_song):
         self.__current_playlist.delete_selected_song(curr_song)
@@ -88,3 +93,6 @@ class SongManager:
 
     def get_all_songs(self):
         return self.__all_songs
+
+    def get_queue(self):
+        return self.__current_playlist

@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL, Label, X, GROOVE, BOTTOM, E
+from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
 import pygame
 import os
 import time
@@ -37,8 +37,9 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
-    songlist.itemconfig(1, bg='green')
+
     Constants.current_song = songs[songlist.curselection()[0]]
+
 
 
 def play_pause_music():
@@ -66,6 +67,7 @@ def play_pause_music():
     time()
 
 def next_music():
+
     try:
         Constants.current_song = songs[songlist.curselection()[0]]
 
@@ -80,6 +82,7 @@ def next_music():
 
 
 def back_music():
+
     try:
 
         Constants.current_song = songs[songlist.curselection()[0]]
@@ -92,6 +95,9 @@ def back_music():
     except:
         pass
 
+def add_track():
+    player_owner.add_to_queue(songlist.curselection()[0])
+    songlist.itemconfig(songlist.curselection()[0], bg='green')
 
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
@@ -135,8 +141,8 @@ play_pause_btn = Button(control_frame, image=play_btn_image, borderwidth=0, comm
 next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=next_music)
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
+add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
-add_btn = Button(control_frame, image=add_btn_image, borderwidth=0)
 delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
 erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0)
 

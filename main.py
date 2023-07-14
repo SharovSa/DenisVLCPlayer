@@ -39,7 +39,7 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
-    songlist.itemconfig(1, bg='green')
+
     Constants.current_song = songs[songlist.curselection()[0]]
 
 
@@ -81,6 +81,7 @@ def next_music():
         pass
 
 
+
 def back_music():
     Constants.isLoad = False
     try:
@@ -112,6 +113,9 @@ def change_volume(value):
 
 
 organise_menu = Menu(menubar, tearoff=False)
+
+
+
 songlist = Listbox(root, bg="black", fg="white")
 songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
 
