@@ -28,7 +28,7 @@ class SongManager:
         if len(self.__played_songs) != 0:
             tmp = self.__playing_song
             self.__playing_song = self.get_last_played_song()
-            self.add_song_to_queue(tmp)
+            #self.add_song_to_queue(tmp)
             return self.__playing_song
         if self.__is_random:
             self.add_song_to_queue(self.__playing_song)

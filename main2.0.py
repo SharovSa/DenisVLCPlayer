@@ -84,6 +84,8 @@ def back_music():
 
         Constants.current_song = songs[songlist.curselection()[0]]
         pygame.mixer.music.load(player_owner.get_manager().prew_song().get_link())
+        songlist.selection_clear(0, END)
+        songlist.selection_set(player_owner.get_manager().get_song().get_song_id())
         player_owner.set_pause(True)
         player_owner.set_playing(False)
         play_pause_music()
