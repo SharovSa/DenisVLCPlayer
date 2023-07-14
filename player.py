@@ -3,7 +3,6 @@ import pygame
 from SongManager import SongManager
 
 
-
 class Player:
     def __init__(self):
         self.__is_paused = True
@@ -11,7 +10,6 @@ class Player:
         self.__is_random = False
         self.__time = 0
         self.__song_manager = SongManager()
-
 
     def is_paused(self):
         return self.__is_paused
