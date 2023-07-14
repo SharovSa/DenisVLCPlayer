@@ -32,6 +32,7 @@ class SongHolder:
             print(i.get_name())
 
     def check_memory(self):
+
         directory = os.chdir('songs')
 
         for file in os.listdir(directory):

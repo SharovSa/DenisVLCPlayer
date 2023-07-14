@@ -4,23 +4,15 @@ from song import Song
 
 
 class SongManager:
-    # не варик убрать в конструктор
-    __current_playlist = UserQueue()
-    __all_songs = SongHolder()
-    __playing_song = __all_songs.get_song_by_id(0)
-    __played_songs = []
-    __is_random = False
-    __is_cycled = False
-    __size_of_remaining = 5
 
     def __init__(self):
-        __current_playlist = UserQueue()
-        __all_songs = SongHolder()
-        __playing_song = __all_songs.get_song_by_id(0)
-        __played_songs = []
-        __is_random = False
-        __is_cycled = False
-        __size_of_remaining = 5
+        self.__current_playlist = UserQueue()
+        self.__all_songs = SongHolder()
+        self.__playing_song = self.__all_songs.get_song_by_id(0)
+        self.__played_songs = []
+        self.__is_random = False
+        self.__is_cycled = False
+        self.__size_of_remaining = 5
 
     def prew_song(self):
         if self.__is_cycled:
@@ -28,7 +20,7 @@ class SongManager:
         if len(self.__played_songs) != 0:
             tmp = self.__playing_song
             self.__playing_song = self.get_last_played_song()
-            #self.add_song_to_queue(tmp)
+            # self.add_song_to_queue(tmp)
             return self.__playing_song
         if self.__is_random:
             self.add_song_to_queue(self.__playing_song)
