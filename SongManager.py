@@ -12,6 +12,7 @@ class SongManager:
     __is_random = False
     __is_cycled = False
     __size_of_remaining = 5
+
     def __init__(self):
         __current_playlist = UserQueue()
         __all_songs = SongHolder()
@@ -47,7 +48,7 @@ class SongManager:
         curr_id = self.__playing_song.get_song_id()
         self.add_to_played(self.__playing_song)
         self.__playing_song = self.__all_songs.get_song_by_id(curr_id + 1)
-        #self.__current_playlist.add_song_to_queue(self.__playing_song)
+        # self.__current_playlist.add_song_to_queue(self.__playing_song)
         return self.__playing_song
 
     def get_song(self):
