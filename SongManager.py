@@ -96,3 +96,9 @@ class SongManager:
 
     def get_queue(self):
         return self.__current_playlist
+
+    def get_cycle_status(self):
+        return self.__is_cycled
+
+    def set_cycle_status(self, flag):
+        self.__is_cycled = flag
