@@ -35,8 +35,10 @@ def load_music():
         songlist.insert("end", song)
 
     songlist.selection_set(0)
-    songlist.itemconfig(1, bg='green')
+
     Constants.current_song = songs[songlist.curselection()[0]]
+
+
 
 def play_pause_music():
     if not Constants.isLoad:
@@ -85,6 +87,10 @@ def back_music():
     except:
         pass
 
+def add_track():
+    player_owner.add_to_queue(songlist.curselection()[0])
+    songlist.itemconfig(songlist.curselection()[0], bg='green')
+
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
     pygame.mixer.music.set_volume(volume)
@@ -112,7 +118,7 @@ next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=ne
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0)
-add_btn = Button(control_frame, image=add_btn_image, borderwidth=0)
+add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
 
 play_pause_btn.grid(row=0, column=4, padx=7, pady=10)

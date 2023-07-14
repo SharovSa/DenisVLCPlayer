@@ -61,6 +61,11 @@ class SongManager:
 
     def add_song_to_queue(self, song):
         self.__current_playlist.add_song_to_queue(song)
+        self.__current_playlist.get_next_list()
+
+    def add_song_to_queue_end(self, song):
+        self.__current_playlist.add_song_to_queue_end(song)
+        self.__current_playlist.get_next_list()
 
     def delete_song_from_queue(self, curr_song):
         self.__current_playlist.delete_selected_song(curr_song)
@@ -78,3 +83,6 @@ class SongManager:
 
     def get_all_songs(self):
         return self.__all_songs
+
+    def get_queue(self):
+        return self.__current_playlist
