@@ -18,6 +18,7 @@ menubar = Menu(root)
 root.config(menu=menubar)
 songs = []
 
+
 class Constants:
     current_song = ""
     isLoad = False
@@ -37,6 +38,7 @@ def load_music():
     songlist.selection_set(0)
     songlist.itemconfig(1, bg='green')
     Constants.current_song = songs[songlist.curselection()[0]]
+
 
 def play_pause_music():
     if not Constants.isLoad:
@@ -60,8 +62,8 @@ def play_pause_music():
         player_owner.set_pause(True)
         play_pause_btn.config(image=play_btn_image)
 
-def next_music():
 
+def next_music():
     try:
         Constants.current_song = songs[songlist.curselection()[0]]
 
@@ -74,7 +76,6 @@ def next_music():
 
 
 def back_music():
-
     try:
 
         Constants.current_song = songs[songlist.curselection()[0]]
@@ -85,15 +86,15 @@ def back_music():
     except:
         pass
 
+
 def change_volume(value):
     volume = int(value) / 100  # Преобразование значения в диапазоне от 0 до 1
     pygame.mixer.music.set_volume(volume)
 
+
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
 songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
-
-
 
 play_btn_image = PhotoImage(file='logo/play.png')
 pause_btn_image = PhotoImage(file='logo/pause.png')
@@ -129,6 +130,6 @@ volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
 
-load_music() # загрузка треков при запуске
+load_music()  # загрузка треков при запуске
 
 root.mainloop()
