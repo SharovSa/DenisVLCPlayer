@@ -98,6 +98,10 @@ def change_volume(value):
 
 def random_button():
     player_owner.get_manager().set_random_status(not player_owner.get_manager().get_random_status())
+    if random_btn["image"] == 'pyimage7':
+        random_btn.config(image=random_active_btn_image)
+    else:
+        random_btn.config(image=random_btn_image)
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
