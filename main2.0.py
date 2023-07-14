@@ -108,10 +108,17 @@ def random_button():
     else:
         random_btn.config(image=random_btn_image)
 
+
 def clear_all():
     player_owner.clear_queue()
     for i in range(0, songlist.size()):
         songlist.itemconfig(i, bg='black')
+
+
+def cycle_button():
+    player_owner.get_manager().set_cycle_status(not player_owner.get_manager().get_cycle_status())
+
+
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
@@ -135,11 +142,11 @@ control_frame.pack()
 play_pause_btn = Button(control_frame, image=play_btn_image, borderwidth=0, command=play_pause_music)
 next_btn = Button(control_frame, image=next_btn_image, borderwidth=0, command=next_music)
 back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=back_music)
-cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
+cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0, command=cycle_button)
 add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
-delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0, command=clear_all)
-erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0)
+delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
+erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0, command=clear_all)
 
 play_pause_btn.grid(row=0, column=4, padx=7, pady=10)
 next_btn.grid(row=0, column=5, padx=7, pady=10)
@@ -148,6 +155,7 @@ cycle_btn.grid(row=0, column=2, padx=7, pady=10)
 random_btn.grid(row=0, column=0, padx=7, pady=10)
 add_btn.grid(row=0, column=6, padx=7, pady=10)
 delete_btn.grid(row=0, column=7, padx=7, pady=10)
+erase_btn.grid(row=0, column=8, padx=7, pady=10)
 
 volume_slider = Scale(root, from_=0, to=100, orient=HORIZONTAL)
 volume_slider.pack()
@@ -155,6 +163,7 @@ volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
 
-load_music() # загрузка треков при запуске
+
+load_music()  # загрузка треков при запуске
 
 root.mainloop()
