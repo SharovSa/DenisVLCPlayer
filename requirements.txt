@@ -1,0 +1,5 @@
+tkinter
+pygame
+os
+eyed3
+random
