@@ -1,7 +1,8 @@
 import tkinter
-from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL
+from tkinter import Tk, Menu, END, Listbox, Button, PhotoImage, Frame, Scale, HORIZONTAL, Label, BOTTOM, X, GROOVE, E
 import pygame
 import os
+import time
 from player import Player
 from song import Song
 
@@ -62,6 +63,8 @@ def play_pause_music():
         pygame.mixer.music.pause()
         player_owner.set_pause(True)
         play_pause_btn.config(image=play_btn_image)
+
+    current_time()
 
 def next_music():
 
@@ -135,7 +138,14 @@ def delete_cur():
     if not player_owner.get_manager().get_queue().delete_selected_song(cur_song):
         songlist.itemconfig(songlist.curselection()[0], bg='black')
 
-
+def current_time():
+    cur_time = pygame.mixer.music.get_pos() / 1000
+    converted_time = time.strftime('%M:%S', time.gmtime(cur_time))
+    status_bar.config(text=converted_time)
+    if converted_time != '59:59':
+        status_bar.after(1000, current_time)
+    else:
+        status_bar.config(text='')
 
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
@@ -179,6 +189,9 @@ volume_slider.pack()
 volume_slider.set(100)
 
 volume_slider.config(command=change_volume)
+
+status_bar = Label(root, text='', bd = 1, relief=GROOVE, anchor=E)
+status_bar.pack(fill=X, side=BOTTOM, ipadx=2)
 
 
 load_music()  # загрузка треков при запуске
