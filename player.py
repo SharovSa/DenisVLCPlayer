@@ -25,3 +25,7 @@ class Player:
 
     def get_manager(self):
         return self.__song_manager
+
+    def add_to_queue(self, flag):
+        self.__song_manager.add_song_to_queue_end(self.__song_manager.get_all_songs().get_song_by_id(flag))
+        print(self.__song_manager.get_queue().get_count_of_songs())
