@@ -108,6 +108,11 @@ def random_button():
     else:
         random_btn.config(image=random_btn_image)
 
+def clear_all():
+    player_owner.clear_queue()
+    for i in range(0, songlist.size()):
+        songlist.itemconfig(i, bg='black')
+
 organise_menu = Menu(menubar, tearoff=False)
 songlist = Listbox(root, bg="black", fg="white")
 songlist.pack(fill=tkinter.BOTH, side=tkinter.TOP, expand=True)
@@ -133,7 +138,7 @@ back_btn = Button(control_frame, image=back_btn_image, borderwidth=0, command=ba
 cycle_btn = Button(control_frame, image=cycle_btn_image, borderwidth=0)
 add_btn = Button(control_frame, image=add_btn_image, borderwidth=0, command=add_track)
 random_btn = Button(control_frame, image=random_btn_image, borderwidth=0, command=random_button)
-delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0)
+delete_btn = Button(control_frame, image=delete_btn_image, borderwidth=0, command=clear_all)
 erase_btn = Button(control_frame, image=erase_btn_image, borderwidth=0)
 
 play_pause_btn.grid(row=0, column=4, padx=7, pady=10)
