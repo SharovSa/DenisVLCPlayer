@@ -10,7 +10,7 @@ class UserQueue:
         self.__songs_playlist = songs_playlist
 
     def add_song_to_queue(self, song):
-        self.__songs_playlist.insert(0,song)
+        self.__songs_playlist.insert(0, song)
         self.__count += 1
 
     def get_next(self):
