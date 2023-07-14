@@ -12,7 +12,6 @@ class UserQueue:
     def add_song_to_queue(self, song):
         self.__songs_playlist.insert(0, song)
 
-
     def add_song_to_queue_end(self, song):
         self.__songs_playlist.append(song)
 
