@@ -11,6 +11,7 @@ class SongManager:
     __played_songs = []
     __is_random = False
     __is_cycled = False
+    __size_of_remaining = 5
     def __init__(self):
         __current_playlist = UserQueue()
         __all_songs = SongHolder()
@@ -18,6 +19,7 @@ class SongManager:
         __played_songs = []
         __is_random = False
         __is_cycled = False
+        __size_of_remaining = 5
 
     def prew_song(self):
         if self.__is_cycled:
@@ -67,7 +69,7 @@ class SongManager:
         self.__is_random = flag
 
     def add_to_played(self, song):
-        if len(self.__played_songs) == 5:
+        if len(self.__played_songs) == self.__size_of_remaining:
             self.__played_songs.pop(0)
         self.__played_songs.append(song)
 

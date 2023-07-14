@@ -2,12 +2,13 @@ import eyed3
 import os
 from song import Song
 import random
+
+
 class SongHolder:
 
     def __init__(self):
         self.__songs_array = []
         self.__count = 0
-
         #directory = os.getcwd() + "\\songs\\"
         directory = os.path.join(os.getcwd(), "songs/")
         for file in os.listdir(directory):
