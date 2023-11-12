@@ -35,11 +35,13 @@
 
 `cd Player`
 
-`cd DenisVLCPlayer`
-
 Клонируйте репозиторий командами ниже:
 
 `git clone https://github.com/SharovSa/DenisVLCPlayer.git`
+
+Перейдите в созданную папку:
+
+`cd DenisVLCPlayer`
 
 Переключитесь на ветку dev:
 
