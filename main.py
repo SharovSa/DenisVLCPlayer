@@ -9,6 +9,7 @@ from song import Song
 root = Tk()
 root.title('DenisPlayer')
 root.geometry("600x350")
+root.resizable(width=False, height=False)
 player_owner = Player()
 
 try:
