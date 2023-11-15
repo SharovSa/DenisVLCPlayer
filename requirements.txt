@@ -1,0 +1,4 @@
+tk
+pygame
+eyed3
+FFmpeg
